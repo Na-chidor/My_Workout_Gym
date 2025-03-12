@@ -7,12 +7,12 @@
 }
 
 .navContainer {
-    overflow: hidden;
-    position: fixed;
+    position: relative;
     top: 0;
     left: 0;
     right: 0;
-    background-color: var(--dark-red);
+    background-color: transparent; /* Completely transparent */
+    backdrop-filter: blur(10px); /* Blurred effect */
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
     padding: 0px 7%;
     display: flex;
@@ -20,7 +20,6 @@
     justify-content: space-between;
     z-index: 100;
 }
-
 
 .navLogo {
     color: white;
@@ -32,11 +31,16 @@
 
 .navbar ul {
     list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px; /* Space between items */
+    margin-left: -50px; 
 }
 
 .navbar ul li {
     position: relative;
-    float: left;
+    display: inline-block;
 }
 
 .profilePicture {
@@ -56,17 +60,19 @@
     display: none;
 }
 
+
 .navbar ul li p {
     font-size: 1rem;
     padding: 20px;
     color: white;
     display: block;
-    transition: all 1s;
+    transition: all 0.3s ease;
 }
 
 .navbar ul li p:hover {
-    transform: translateY(-1px);
-    border-bottom: solid 2px white;
+    color: darkgreen; /* Hover effect - dark green */
+    background-color: rgba(0, 100, 0, 0.3); /* Slight dark green background */
+    border-radius: 5px;
 }
 
 #menu-bar {
@@ -115,16 +121,16 @@
     }
 
     .navbar ul li p:hover {
-        transform: translateY(-1px);
-
-        border-bottom: none;
+        color: darkgreen;
+        background-color: rgba(0, 100, 0, 0.3);
+        border-radius: 5px;
     }
 
     .navbar ul li {
         width: 100%;
     }
 
-    #menu-bar:checked~.navbar {
+    #menu-bar:checked ~ .navbar {
         left: 0;
     }
 }

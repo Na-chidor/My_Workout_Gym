@@ -1,0 +1,14 @@
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Transparent dark background */
+    backdrop-filter: blur(10px); /* Blurred effect */
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    color: white;
+    font-weight: 800;
+    position: relative; /* Allowing flexibility for sticky footer */
+    margin-top: auto; /* Pushes footer to the bottom */
+}

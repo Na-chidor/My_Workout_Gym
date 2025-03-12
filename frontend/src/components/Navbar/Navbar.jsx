@@ -23,9 +23,12 @@ const Navbar = () => {
 
     return (
         <div className='navContainer'>
-            <Link to="/home">
-                <p className='navLogo'>GymBro</p>
-            </Link>
+            <Link to="/home" className="navLogo">
+            <FontAwesomeIcon icon="fa-duotone fa-solid fa-dumbbell" />
+    GYMBRO
+    <FontAwesomeIcon icon="fa-duotone fa-solid fa-dumbbell" />
+</Link>
+
 
             <input type="checkbox" id='menu-bar' />
             <label htmlFor="menu-bar">

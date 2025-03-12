@@ -1,23 +1,57 @@
-/* pages/home/home.css */
-
+.home {
+    background-image: url("https://images.unsplash.com/photo-1554291699-4a5c15f3ddab");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: darkslategray;
+    height: 100vh;
+}
+body {
+    background-color: black; /* Set the background color of the entire page */
+    color: white; /* Set the text color to white for better contrast */
+}
 .home .banner {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    margin-top: 100px;
-    gap: 50px;
-    height: 300px;
+    margin-top: 0px;
+    gap: 20px;
+    height: 100vh;
+    background-image: url('hero-1.jpg');
+    background-size: cover;
+    background-position: center;
+
 }
 
 .home .banner h1 {
-    font-size: 2.5rem;
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    right: 15%; 
 }
 
 .home .banner p {
     font-size: 1.5rem;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
+.heroSection {
+    margin: 40px auto;
+    padding: 40px;
+    max-width: 800px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.1); /* Transparent glassy background */
+    border-radius: 20px;
+}
+
+.heroSection p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
 
 .home .mainContainer {
     margin: 50px 0;
@@ -26,4 +60,17 @@
     gap: 20px;
     justify-content: center;
     align-items: center;
+}
+
+.homeComp {
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.15); /* Transparent glassy look */
+    padding: 20px;
+    border-radius: 20px;
+    transition: transform 0.3s;
+}
+
+.homeComp:hover {
+    transform: scale(1.05);
+    background: rgba(255, 255, 255, 0.25); /* Slightly lighter on hover */
 }
