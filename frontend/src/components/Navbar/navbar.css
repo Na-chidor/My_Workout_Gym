@@ -7,7 +7,8 @@
 }
 
 .navContainer {
-    position: relative;
+    position: fixed;
+    overflow:fixed;
     top: 0;
     left: 0;
     right: 0;
@@ -31,16 +32,13 @@
 
 .navbar ul {
     list-style: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px; /* Space between items */
-    margin-left: -50px; 
+    
 }
 
 .navbar ul li {
     position: relative;
     display: inline-block;
+    /* float:left; */
 }
 
 .profilePicture {

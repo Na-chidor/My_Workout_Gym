@@ -97,6 +97,7 @@ const Entries = () => {
     if (error) return <p>{error}</p>;
 
     return (
+        
         <div className='entry'>
             <Navbar />
 
@@ -189,7 +190,7 @@ const Entries = () => {
                     )}
                 </div>
             </div>
-
+            <Footer />
         </div>
     )
 }

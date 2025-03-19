@@ -108,3 +108,12 @@ form .txt_field {
         width: 300px;
     }
 }
+.message {
+    color: red; /* For error messages */
+    margin-top: 10px;
+    text-align: center;
+}
+
+.message.success {
+    color: green; /* For success messages */
+}

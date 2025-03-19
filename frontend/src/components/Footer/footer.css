@@ -9,6 +9,7 @@
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
     color: white;
     font-weight: 800;
-    position: relative; /* Allowing flexibility for sticky footer */
+    bottom: 0;
+    position: sticky; /* Allowing flexibility for sticky footer */
     margin-top: auto; /* Pushes footer to the bottom */
 }

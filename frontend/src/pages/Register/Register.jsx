@@ -4,18 +4,29 @@ import axios from "axios";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import "./register.css";
+import Snackbar from "@mui/material/Snackbar"; // Import Snackbar from Material-UI
+import Alert from "@mui/material/Alert"; // Import Alert from Material-UI
 
 function Register() {
     const navigate = useNavigate();
     const [file, setFile] = useState(null);
     const [info, setInfo] = useState({});
+    const [isLoading, setIsLoading] = useState(false); // For loading state
+    const [snackbarOpen, setSnackbarOpen] = useState(false); // For snackbar visibility
+    const [snackbarMessage, setSnackbarMessage] = useState(""); // For snackbar message
+    const [snackbarSeverity, setSnackbarSeverity] = useState("info"); // For snackbar severity (error, success, etc.)
 
     const handleChange = (e) => {
         setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
     };
 
+    const handleSnackbarClose = () => {
+        setSnackbarOpen(false); // Close the snackbar
+    };
+
     const handleClick = async (e) => {
         e.preventDefault();
+        setIsLoading(true); // Start loading
 
         try {
             let profilePicture = "";
@@ -36,11 +47,19 @@ function Register() {
 
             const newUser = { ...info, profilePicture };
 
-            await axios.post("http://localhost:7700/api/auth/register", newUser, { withCredentials: true });
-
-            navigate("/login");
+            const res = await axios.post("http://localhost:7700/api/auth/register", newUser, { withCredentials: true });
+            setSnackbarMessage("Confirmation link sent. Please confirm your email."); // Success message
+            setSnackbarSeverity("success"); // Set snackbar to success
+            setSnackbarOpen(true); // Show snackbar
+            navigate("/login"); // Redirect to login after registration
         } catch (err) {
+            const errorMessage = err.response?.data?.message || "Registration failed. Network error.";
+            setSnackbarMessage(errorMessage); // Error message
+            setSnackbarSeverity("error"); // Set snackbar to error
+            setSnackbarOpen(true); // Show snackbar
             console.error("Registration error:", err.response?.data || err.message);
+        } finally {
+            setIsLoading(false); // Stop loading
         }
     };
 
@@ -106,8 +125,8 @@ function Register() {
                         </div>
 
                         <div className="login_button">
-                            <button className="button" onClick={handleClick}>
-                                Register
+                            <button className="button" onClick={handleClick} disabled={isLoading}>
+                                {isLoading ? "Registering..." : "Register"} {/* Loading indicator */}
                             </button>
                         </div>
                         <div className="signup_link">
@@ -119,6 +138,18 @@ function Register() {
                 </div>
             </div>
             <Footer />
+
+            {/* Snackbar for feedback */}
+            <Snackbar
+                open={snackbarOpen}
+                autoHideDuration={6000} // Auto-close after 6 seconds
+                onClose={handleSnackbarClose}
+                anchorOrigin={{ vertical: "bottom", horizontal: "center" }} // Position at bottom center
+            >
+                <Alert onClose={handleSnackbarClose} severity={snackbarSeverity}>
+                    {snackbarMessage}
+                </Alert>
+            </Snackbar>
         </div>
     );
 }

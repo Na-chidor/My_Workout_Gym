@@ -1,6 +1,5 @@
-/* pages/Meal/meal.css */
-
-.mealsView .mealsViewContainer {
+/* meals.css */
+.meals .mealsContainer{
     margin: 100px 0;
     display: flex;
     flex-wrap: wrap;
@@ -10,59 +9,73 @@
     text-align: center;
 }
 
-.mealsView .mealsViewContainer .mealViewItem {
-    border: 5px solid var(--red);
-    position: relative;
-    height: 300px;
-    width: 300px;
-    display: flex;
-    flex-direction: column;
-}
-
-
-
-.mealsView .mealsViewContainer .mealDetails {
-    background-color: white;
-    border-radius: 10px;
-    padding: 5px;
+.mealsContainer {
+    flex: 1; /* Take up remaining space */
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+}
+
+.mealForm {
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
     gap: 10px;
-    position: absolute;
-    top: 60%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 }
 
-.mealsViewContainer .mealDetails .mealName {
-    font-size: 1.3rem;
-    font-weight: bold;
+.mealForm input, .mealForm textarea, .mealForm select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 5px 0;
 }
 
-.mealsViewContainer .mealDetails .mealTime {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--dark-red);
-}
-
-.mealsViewContainer .mealDetails .mealCat {
-    background-color: rgba(255, 228, 196, 0.523);
-    border-radius: 10px;
-    padding: 5px;
-    font-weight: 700;
-}
-
-.mealsViewContainer .mealLink {
-    font-size: 1.2rem;
-    font-weight: 500;
+.createMealBtn {
+    background-color: #2ecc71;
     color: white;
-    padding: 5px 0;
-    background-color: var(--red);
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
 }
 
-.mealsViewContainer .mealLink:hover {
-    background-color: var(--dark-red);
+.createMealBtn:hover {
+    background-color: #27ae60;
+}
+
+.mealsList {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.mealItem {
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.mealItem h2 {
+    margin-bottom: 8px;
+    font-size: 1.5rem;
+}
+
+.mealItem p, .mealItem a {
+    margin: 4px 0;
+}
+
+.deleteBtn {
+    margin-top: 10px;
+    background-color: #e74c3c;
+    color: white;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.deleteBtn:hover {
+    background-color: #c0392b;
 }

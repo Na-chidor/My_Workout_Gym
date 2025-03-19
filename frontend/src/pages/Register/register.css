@@ -133,3 +133,12 @@ form .txt_field_img {
         margin: 0;
     }
 }
+.message {
+    color: red; /* For error messages */
+    margin-top: 10px;
+    text-align: center;
+}
+
+.message.success {
+    color: green; /* For success messages */
+}

@@ -1,11 +1,17 @@
 /* entry.css */
-
-.entry {
-    background-color: black;
-    padding: 30px;
+.entry .entriesContainer{
+    margin: 100px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    text-align: center;
 }
 
+
 .entriesContainer {
+    flex: 1; /* Take up remaining space */
     display: flex;
     flex-direction: column;
     align-items: center;

@@ -1,16 +1,21 @@
-//index.js
+import React from "react";
+import "./index.css";
+import ReactDOM from "react-dom/client";
+import { AuthContextProvider } from "./authContext";
+import App from "./App";
+import { SnackbarProvider } from "notistack"; // Import SnackbarProvider
 
-import React from 'react';
-import "./index.css"
-import ReactDOM from 'react-dom/client';
-import { AuthContextProvider } from './authContext';
-import App from './App';
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-    <AuthContextProvider>
-        <React.StrictMode>
-            <App />
-        </React.StrictMode>
-    </AuthContextProvider>
+  <AuthContextProvider>
+    <React.StrictMode>
+      {/* Wrap App with SnackbarProvider */}
+      <SnackbarProvider
+        maxSnack={3} // Maximum number of snackbars to display at once
+        anchorOrigin={{ vertical: "top", horizontal: "center" }} // Position at top center
+      >
+        <App />
+      </SnackbarProvider>
+    </React.StrictMode>
+  </AuthContextProvider>
 );

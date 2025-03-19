@@ -12,6 +12,9 @@
   "author": "ermib6",
   "license": "ISC",
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/material": "^6.4.8",
     "bcryptjs": "^3.0.2",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
@@ -22,6 +25,7 @@
     "mongodb": "^6.14.2",
     "mongoose": "^8.12.1",
     "morgan": "^1.10.0",
+    "nodemailer": "^6.10.0",
     "nodemon": "^3.1.9"
   }
 }
