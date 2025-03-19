@@ -39,12 +39,13 @@ app.use(helmet());
 app.use(bodyParser.json());
 
 app.use(cors({
-    origin: "http://localhost:5173",
-    credentials: true
+  origin: '*',
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true
 }))
 app.get('/', (request, response) => {
     console.log(request);
-    return response.status(234).send('Welcome to mern-book-store-api');
+    return response.status(234).send('Welcome to MERN-GYMBRO-api');
   });
 
 app.use(morgan("common"));
