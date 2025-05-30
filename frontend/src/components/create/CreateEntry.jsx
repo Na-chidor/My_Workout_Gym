@@ -13,7 +13,7 @@ const CreateEntry = ({ setOpen }) => {
 
     const { user } = useContext(AuthContext);
     const [info, setInfo] = useState({});
-    const { data } = useFetch(`/entries/fetchMealsAndRoutines/${user._id}`)
+    const { data } = useFetch(`https://server-seide.vercel.app/entries/fetchMealsAndRoutines/${user._id}`)
     const handleChange = (e) => {
         setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
     }
@@ -24,7 +24,7 @@ const CreateEntry = ({ setOpen }) => {
             ...info, author: user._id
         }
         try {
-            await axios.post('http://localhost:2000/api/entries/', newEntry, {
+            await axios.post('https://server-seide.vercel.app/api/entries/', newEntry, {
                 withCredentials: false
             })
             setOpen(false)

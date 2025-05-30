@@ -25,9 +25,9 @@ const Navbar = () => {
         <div className='navContainer'>
             <Link to="/home" className="navLogo">
             <FontAwesomeIcon icon="fa-duotone fa-solid fa-dumbbell" />
-    GYMBRO
-    <FontAwesomeIcon icon="fa-duotone fa-solid fa-dumbbell" />
-</Link>
+                    GYMBRO
+            <FontAwesomeIcon icon="fa-duotone fa-solid fa-dumbbell" />
+            </Link>
 
 
             <input type="checkbox" id='menu-bar' />
@@ -70,7 +70,7 @@ const Navbar = () => {
                         )}
                 </ul>
             </nav>
-        </div >
+        </div>
     )
 }
 

@@ -23,7 +23,7 @@ const Meals = () => {
     useEffect(() => {
         const fetchMeals = async () => {
             try {
-                const response = await axios.get(`/api/meals/${user._id}`);
+                const response = await axios.get(`https://server-seide.vercel.app/api/meals/${user._id}`);
                 setMeals(response.data);
                 setLoading(false);
             } catch (err) {
@@ -46,7 +46,7 @@ const Meals = () => {
         e.preventDefault();
         try {
             const newMeal = { ...info, author: user._id };
-            const response = await axios.post('/api/meals', newMeal);
+            const response = await axios.post('https://server-seide.vercel.app/api/meals', newMeal);
             setMeals((prev) => [...prev, response.data]); // Update the meals list
             setInfo({ name: '', description: '', recipe: '', time: '', category: 'none' }); // Reset form
         } catch (err) {
@@ -57,7 +57,7 @@ const Meals = () => {
     // Handle meal deletion
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`/api/meals/${id}`);
+            await axios.delete(`https://server-seide.vercel.app/api/meals/${id}`);
             setMeals(meals.filter((meal) => meal._id !== id)); // Remove the meal from the list
         } catch (err) {
             console.error("Error deleting meal:", err);

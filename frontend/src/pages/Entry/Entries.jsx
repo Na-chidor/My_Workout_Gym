@@ -24,7 +24,7 @@ const Entries = () => {
     useEffect(() => {
         const fetchEntries = async () => {
             try {
-                const response = await axios.get(`/api/entries/${user._id}`);
+                const response = await axios.get(`https://server-seide.vercel.app/api/entries/${user._id}`);
                 setEntries(Array.isArray(response.data) ? response.data : []);
                 setLoading(false);
             } catch (err) {

@@ -57,8 +57,5 @@ app.use("/api/routines", routineRoute);
 app.use("/api/meals", mealRoute);
 
 const server = createServer(app);
-server.listen(PORT, () => {
-    console.log(`🚀 Server is running on http://localhost:${PORT}`);
 
-});
 export default server;

@@ -47,7 +47,7 @@ function Register() {
 
             const newUser = { ...info, profilePicture };
 
-            const res = await axios.post("http://localhost:7700/api/auth/register", newUser, { withCredentials: true });
+            const res = await axios.post("https://server-seide.vercel.app/api/auth/register", newUser, { withCredentials: true });
             setSnackbarMessage("Confirmation link sent. Please confirm your email."); // Success message
             setSnackbarSeverity("success"); // Set snackbar to success
             setSnackbarOpen(true); // Show snackbar

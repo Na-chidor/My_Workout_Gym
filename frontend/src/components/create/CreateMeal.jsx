@@ -24,7 +24,7 @@ const CreateMeal = ({ setOpen }) => {
             ...info, author: user._id
         }
         try {
-            await axios.post("http://localhost:2000/api/meals", newMeal, {
+            await axios.post("https://server-seide.vercel.app/api/meals", newMeal, {
                 withCredentials: false
             })
             setOpen(false)

@@ -25,7 +25,7 @@ const CreateRoutine = ({ setOpen }) => {
             ...info, author: user._id
         }
         try {
-            await axios.post("http://localhost:2000/api/routines", newRoutine, {
+            await axios.post("https://server-seide.vercel.app/api/routines", newRoutine, {
                 withCredentials: false
             })
             setOpen(false)

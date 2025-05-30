@@ -15,7 +15,7 @@ const Routines = () => {
     useEffect(() => {
         const fetchRoutines = async () => {
             try {
-                const response = await axios.get(`/routines/${user._id}`);
+                const response = await axios.get(`https://server-seide.vercel.app/routines/${user._id}`);
                 setRoutines(Array.isArray(response.data) ? response.data : []);
                 setLoading(false);
             } catch (err) {
