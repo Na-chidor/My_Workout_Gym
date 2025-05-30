@@ -24,26 +24,34 @@ async function connectDB() {
       useUnifiedTopology: true,
     });
     isConnected = true;
-    console.log("Connected to MongoDB");
+    console.log("✅ Connected to MongoDB");
   } catch (err) {
-    console.error("MongoDB connection error:", err);
+    console.error("❌ MongoDB connection error:", err);
     throw err;
   }
 }
 
+// Connect to DB before each request
 app.use(async (req, res, next) => {
-  await connectDB();
-  next();
+  try {
+    await connectDB();
+    next();
+  } catch (err) {
+    next(err);
+  }
 });
 
+// Middleware
 app.use(cookieParser());
 app.use(express.json());
 app.use(helmet());
 app.use(cors({ origin: "*", credentials: true }));
-app.use(morgan("common"));
+app.use(morgan("dev"));
 
+// Routes
 app.get("/", (req, res) => {
-  return res.status(200).send("Welcome to MERN-GYMBRO-api");
+  console.log("✅ GET / route hit");
+  res.status(200).send("Welcome to MERN-GYMBRO-api");
 });
 
 app.use("/api/auth", authRoute);
@@ -52,9 +60,16 @@ app.use("/api/entries", entryRoute);
 app.use("/api/routines", routineRoute);
 app.use("/api/meals", mealRoute);
 
+// Error handler
 app.use((err, req, res, next) => {
-  console.error("Internal Server Error:", err);
-  res.status(500).json({ message: "Something broke!", error: err.toString() });
+  console.error("❌ Internal Server Error:", err);
+  res.status(500).json({
+    message: "Something broke!",
+    error: err?.message || err?.toString() || "Unknown error",
+  });
 });
 
-export default app; // ✨ Let @vercel/node handle it
+// ✅ Export a handler for Vercel
+export default function handler(req, res) {
+  app(req, res); // Express handles the request
+}
