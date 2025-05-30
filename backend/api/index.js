@@ -5,15 +5,15 @@ import dotenv from "dotenv";
 import helmet from "helmet";
 import morgan from "morgan";
 import mongoose from "mongoose";
-import userRoute from "./routes/users.js";
-import authRoute from "./routes/auth.js";
-import entryRoute from "./routes/entries.js";
-import routineRoute from "./routes/routines.js";
-import mealRoute from "./routes/meals.js";
+import userRoute from "../routes/users.js";
+import authRoute from "../routes/auth.js";
+import entryRoute from "../routes/entries.js";
+import routineRoute from "../routes/routines.js";
+import mealRoute from "../routes/meals.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import bodyParser from "body-parser"; 
-import { createServer } from 'http';
+import serverless from "serverless-http";
 
 const app = express();
 dotenv.config();
@@ -56,6 +56,4 @@ app.use("/api/entries", entryRoute);
 app.use("/api/routines", routineRoute);
 app.use("/api/meals", mealRoute);
 
-const server = createServer(app);
-
-export default server;
+export const handler = serverless(app);
