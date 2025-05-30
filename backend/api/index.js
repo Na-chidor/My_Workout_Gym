@@ -61,3 +61,4 @@ app.use("/api/meals", mealRoute);
 
 // Export for Vercel serverless function
 export const handler = serverless(app);
+export default handler;
