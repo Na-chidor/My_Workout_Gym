@@ -34,7 +34,6 @@ async function connectDB() {
     throw err;
   }
 }
-
 // Connect on each request (serverless safe)
 app.use(async (req, res, next) => {
   await connectDB();
@@ -58,7 +57,10 @@ app.use("/api/users", userRoute);
 app.use("/api/entries", entryRoute);
 app.use("/api/routines", routineRoute);
 app.use("/api/meals", mealRoute);
-
+app.use((err, req, res, next) => {
+  console.error('Internal Server Error:', err);
+  res.status(500).json({ message: 'Something broke!', error: err.toString() });
+});
 // Export for Vercel serverless function
 export const handler = serverless(app);
 export default handler;
