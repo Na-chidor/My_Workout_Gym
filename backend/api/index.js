@@ -1,4 +1,4 @@
-//index.js
+// api/index.js
 
 import express from "express";
 import dotenv from "dotenv";
@@ -12,48 +12,52 @@ import routineRoute from "../routes/routines.js";
 import mealRoute from "../routes/meals.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import bodyParser from "body-parser"; 
 import serverless from "serverless-http";
 
-const app = express();
 dotenv.config();
 
-const PORT = process.env.PORT || 7700;
+const app = express();
 
-mongoose.connect(process.env.mongoDBURL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }).then(() => {
-    console.log('Connected to MongoDB');
-  }).catch(err => {
-    console.error('MongoDB connection error:', err);
-  });
+// Reusable DB connection
+let isConnected = false;
+async function connectDB() {
+  if (isConnected) return;
+  try {
+    await mongoose.connect(process.env.mongoDBURL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    isConnected = true;
+    console.log("Connected to MongoDB");
+  } catch (err) {
+    console.error("MongoDB connection error:", err);
+    throw err;
+  }
+}
 
-mongoose.connection.on("disconnected", () => {
-    console.log("mongoDB disconnected!");
+// Connect on each request (serverless safe)
+app.use(async (req, res, next) => {
+  await connectDB();
+  next();
 });
 
-app.use(cookieParser())
+// Middleware
+app.use(cookieParser());
 app.use(express.json());
 app.use(helmet());
-app.use(bodyParser.json());
-
-app.use(cors({
-  origin: '*',
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  credentials: true
-}))
-app.get('/', (request, response) => {
-    console.log(request);
-    return response.status(234).send('Welcome to MERN-GYMBRO-api');
-  });
-
+app.use(cors({ origin: "*", credentials: true }));
 app.use(morgan("common"));
 
+// Routes
+app.get("/", (req, res) => {
+  console.log("GET / hit");
+  return res.status(200).send("Welcome to MERN-GYMBRO-api");
+});
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/entries", entryRoute);
 app.use("/api/routines", routineRoute);
 app.use("/api/meals", mealRoute);
 
+// Export for Vercel serverless function
 export const handler = serverless(app);
