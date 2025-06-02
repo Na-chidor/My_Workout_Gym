@@ -45,7 +45,11 @@ app.use(async (req, res, next) => {
 app.use(cookieParser());
 app.use(express.json());
 app.use(helmet());
-app.use(cors({ origin: "*", credentials: true }));
+app.use(cors({ 
+        origin: '*',
+      methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+      credentials: true
+    }));
 app.use(morgan("dev"));
 
 // Routes
