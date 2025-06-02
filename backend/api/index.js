@@ -3,21 +3,19 @@ import dotenv from "dotenv";
 import helmet from "helmet";
 import morgan from "morgan";
 import mongoose from "mongoose";
-import cookieParser from "cookie-parser";
-import cors from "cors";
-
 import userRoute from "../routes/users.js";
 import authRoute from "../routes/auth.js";
 import entryRoute from "../routes/entries.js";
 import routineRoute from "../routes/routines.js";
 import mealRoute from "../routes/meals.js";
+import cookieParser from "cookie-parser";
+import cors from "cors";
+import serverless from "serverless-http"; // ✅ REQUIRED
 
-// Load environment variables
 dotenv.config();
 
 const app = express();
 
-// MongoDB connection management
 let isConnected = false;
 async function connectDB() {
   if (isConnected) return;
@@ -34,7 +32,6 @@ async function connectDB() {
   }
 }
 
-// Connect to DB before each request
 app.use(async (req, res, next) => {
   try {
     await connectDB();
@@ -44,31 +41,30 @@ app.use(async (req, res, next) => {
   }
 });
 
-// Middlewares
+// Middleware
 app.use(cookieParser());
 app.use(express.json());
 app.use(helmet());
-app.use(cors({
-  origin: "*",
+app.use(cors({ 
+  origin: '*',
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true
 }));
 app.use(morgan("dev"));
 
-// Test route
+// Routes
 app.get("/", (req, res) => {
   console.log("✅ GET / route hit");
   res.status(200).send("Welcome to MERN-GYMBRO-api");
 });
 
-// API Routes
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/entries", entryRoute);
 app.use("/api/routines", routineRoute);
 app.use("/api/meals", mealRoute);
 
-// Global error handler
+// Error handler
 app.use((err, req, res, next) => {
   console.error("❌ Internal Server Error:", err);
   res.status(500).json({
@@ -77,5 +73,5 @@ app.use((err, req, res, next) => {
   });
 });
 
-// ✅ Export the Express app for Vercel
-export default app;
+// ✅ Export the Vercel-compatible handler
+export const handler = serverless(app);
