@@ -10,15 +10,17 @@ import routineRoute from "../routes/routines.js";
 import mealRoute from "../routes/meals.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import serverless from "serverless-http"; // ✅ REQUIRED
 
 dotenv.config();
 
 const app = express();
 
+// MongoDB connection cache (for serverless)
 let isConnected = false;
+
 async function connectDB() {
   if (isConnected) return;
+
   try {
     await mongoose.connect(process.env.mongoDBURL, {
       useNewUrlParser: true,
@@ -27,11 +29,12 @@ async function connectDB() {
     isConnected = true;
     console.log("✅ Connected to MongoDB");
   } catch (err) {
-    console.error("❌ MongoDB connection error:", err);
+    console.error("❌ MongoDB connection error:", err.message);
     throw err;
   }
 }
 
+// Connect to DB before handling any request
 app.use(async (req, res, next) => {
   try {
     await connectDB();
@@ -41,23 +44,25 @@ app.use(async (req, res, next) => {
   }
 });
 
-// Middleware
+// Middlewares
 app.use(cookieParser());
 app.use(express.json());
 app.use(helmet());
-app.use(cors({ 
-  origin: '*',
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: "*", // You can restrict to frontend domain if needed
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true,
+  })
+);
 app.use(morgan("dev"));
 
-// Routes
+// Root route
 app.get("/", (req, res) => {
-  console.log("✅ GET / route hit");
-  res.status(200).send("Welcome to MERN-GYMBRO-api");
+  res.status(200).send("✅ MERN-GYMBRO API is working!");
 });
 
+// API routes
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/entries", entryRoute);
@@ -68,10 +73,10 @@ app.use("/api/meals", mealRoute);
 app.use((err, req, res, next) => {
   console.error("❌ Internal Server Error:", err);
   res.status(500).json({
-    message: "Something broke!",
-    error: err?.message || err?.toString() || "Unknown error",
+    message: "Something went wrong!",
+    error: err?.message || "Unknown error",
   });
 });
 
-// ✅ Export the Vercel-compatible handler
-export const handler = serverless(app);
+// ✅ Export the app for Vercel serverless function handler
+export default app;
