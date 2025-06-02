@@ -10,6 +10,7 @@ import routineRoute from "../routes/routines.js";
 import mealRoute from "../routes/meals.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import serverless from "serverless-http"; // ✅ REQUIRED
 
 dotenv.config();
 
@@ -31,7 +32,6 @@ async function connectDB() {
   }
 }
 
-// Connect to DB before each request
 app.use(async (req, res, next) => {
   try {
     await connectDB();
@@ -47,8 +47,8 @@ app.use(express.json());
 app.use(helmet());
 app.use(cors({ 
   origin: '*',
-methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-credentials: true
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true
 }));
 app.use(morgan("dev"));
 
@@ -73,7 +73,5 @@ app.use((err, req, res, next) => {
   });
 });
 
-// ✅ Export a handler for Vercel
-export default function handler(req, res) {
-  app(req, res); // Express handles the request
-}
+// ✅ Export the Vercel-compatible handler
+export const handler = serverless(app);
