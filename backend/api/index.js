@@ -10,7 +10,6 @@ import routineRoute from "../routes/routines.js";
 import mealRoute from "../routes/meals.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import { createServer } from 'http';
 
 dotenv.config();
 
@@ -47,10 +46,10 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(helmet());
 app.use(cors({ 
-        origin: '*',
-      methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-      credentials: true
-    }));
+  origin: '*',
+methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+credentials: true
+}));
 app.use(morgan("dev"));
 
 // Routes
@@ -75,8 +74,6 @@ app.use((err, req, res, next) => {
 });
 
 // ✅ Export a handler for Vercel
-const server = createServer(app);
-// server.listen(PORT, () => {
-//   console.log(`🚀 Server is running on http://localhost:${PORT}`);
-// });
-export default server;
+export default function handler(req, res) {
+  app(req, res); // Express handles the request
+}
